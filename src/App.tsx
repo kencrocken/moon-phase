@@ -43,9 +43,14 @@ function App() {
 
   const loadOneDayData = async (longitude: number, latitude: number) => {
     const todaysDate = buildTodaysDate();
-    const oneDayData = await retrieveOneDay(todaysDate , [longitude, latitude]);
-    console.log(oneDayData);
-    updateOneDay(oneDayData);
+    try {
+      const oneDayData = await retrieveOneDay(todaysDate , [longitude, latitude]);
+      updateOneDay(oneDayData);
+    } catch (error) {
+      console.error(error);
+      setStatus(Status.ERROR);
+    }
+
   }
 
   const getGeolocation = async () =>{
@@ -82,11 +87,11 @@ function App() {
   )
 
   return (
-    <div className="App">
+    <div>
       <div id="stars"></div>
       <div id="stars2"></div>
       <div id="stars3"></div>
-      <header className="App-header">
+      <main className="App">
         {handleButtons()}
         <p>Currently:  { STATUS_MSG[status] }</p>
         { status === Status.SET && (
@@ -96,7 +101,7 @@ function App() {
           </>
         )}
         
-      </header>
+      </main>
 
     </div>
   );
