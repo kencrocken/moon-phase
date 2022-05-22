@@ -72,14 +72,14 @@ function App() {
   }
   const currentPhase = oneDay?.properties?.data.curphase ?? 'Moon Phase';
 
-  const handleButtons = () => {
-    const getGeolocationButton = (<button onClick={getGeolocation}>Get Location</button>);
-    const clearGeolocationButton = (<button onClick={clearGeolocation}>Clear Location</button>);
-    if (status === Status.NOT_SET) {
-      return getGeolocationButton;
-    }
-    return clearGeolocationButton;
-  }
+  const handleButtons = () => (
+    <>
+      { status === Status.NOT_SET ? (
+        <button onClick={getGeolocation}>Get Location</button>) : (
+        <button onClick={clearGeolocation}>Clear Location</button>
+      )}
+    </>
+  )
 
   return (
     <div className="App">
